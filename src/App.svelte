@@ -5,6 +5,18 @@
   let title = '';
   let price = 0;
   let description = '';
+
+  let products = [];
+
+  function createProduct() {
+    const newProduct = {
+      title,
+      price,
+      description,
+    };
+
+    products = products.concat(newProduct);
+  }
 </script>
 
 <main>
@@ -22,14 +34,20 @@
       <textarea id="description" rows="4" bind:value={description}></textarea>
     </div>
 
-    <Button>Create Product</Button>
+    <Button on:click={createProduct}>Create Product</Button>
   </section>
 
-  <Product
-    title={title}
-    price={price}
-    description={description}
-  />
+  {#if products.length === 0}
+    <p>0 products</p>
+  {:else}
+    {#each products as product}
+      <Product
+        title={product.title}
+        price={product.price}
+        description={product.description}
+      />
+    {/each}
+  {/if}
 </main>
 
 <style>
