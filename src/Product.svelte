@@ -1,16 +1,23 @@
 <script>
+  import  { createEventDispatcher } from 'svelte';
   import Button  from './Button.svelte';
 
   export let title;
   export let price;
   export let description;
+
+  const dispatch = createEventDispatcher();
+
+  function addToCart() {
+    dispatch('addcart', title);
+  }
 </script>
 
 <div>
   <h1>{title}</h1>
   <h2>{price}</h2>
   <p>{description}</p>
-  <Button>Add to cart</Button>
+  <Button on:click={addToCart}>Add to cart</Button>
 </div>
 
 <style>
